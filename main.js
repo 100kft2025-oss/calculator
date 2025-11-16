@@ -1,41 +1,33 @@
 let calcValue = "";
 
 function press(val) {
-  calcValue += val;
-  document.getElementById("calcInput").value = calcValue;
+    calcValue += val;
+    document.getElementById("calcScreen").innerText = calcValue;
 }
 
 function calculate() {
-  try {
-    calcValue = eval(calcValue).toString();
-    document.getElementById("calcInput").value = calcValue;
-  } catch {
-    document.getElementById("calcInput").value = "Error";
-    calcValue = "";
-  }
+    try {
+        calcValue = eval(calcValue).toString();
+        document.getElementById("calcScreen").innerText = calcValue;
+    } catch {
+        document.getElementById("calcScreen").innerText = "Error";
+        calcValue = "";
+    }
 }
 
 function clearCalc() {
-  calcValue = "";
-  document.getElementById("calcInput").value = "";
+    calcValue = "";
+    document.getElementById("calcScreen").innerText = "0";
 }
 
 // Keyboard support
 document.addEventListener("keydown", function(event){
     const key = event.key;
-    const allowedKeys = "0123456789+-*/.=C";
-
-    if (allowedKeys.includes(key)) {
-        if (key === "C") {
-            clearCalc();
-        } else if (key === "=" || key === ".") {
-            press(key);
-        } else {
-            press(key);
-        }
-    }
-
-    if (key === "Enter") {
+    if ("0123456789+-*/.".includes(key)) {
+        press(key);
+    } else if (key === "Enter") {
         calculate();
+    } else if (key === "c" || key === "C") {
+        clearCalc();
     }
 });
